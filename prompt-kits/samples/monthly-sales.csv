@@ -1,0 +1,85 @@
+month,product,units,type
+2023-01,SKU-101 Smart thermostat,5084,actual
+2023-02,SKU-101 Smart thermostat,4524,actual
+2023-03,SKU-101 Smart thermostat,4183,actual
+2023-04,SKU-101 Smart thermostat,3215,actual
+2023-05,SKU-101 Smart thermostat,2938,actual
+2023-06,SKU-101 Smart thermostat,2708,actual
+2023-07,SKU-101 Smart thermostat,2809,actual
+2023-08,SKU-101 Smart thermostat,3591,actual
+2023-09,SKU-101 Smart thermostat,4116,actual
+2023-10,SKU-101 Smart thermostat,5184,actual
+2023-11,SKU-101 Smart thermostat,5519,actual
+2023-12,SKU-101 Smart thermostat,5804,actual
+2024-01,SKU-101 Smart thermostat,5951,actual
+2024-02,SKU-101 Smart thermostat,5740,actual
+2024-03,SKU-101 Smart thermostat,4478,actual
+2024-04,SKU-101 Smart thermostat,3794,actual
+2024-05,SKU-101 Smart thermostat,3434,actual
+2024-06,SKU-101 Smart thermostat,3384,actual
+2024-07,SKU-101 Smart thermostat,3493,actual
+2024-08,SKU-101 Smart thermostat,4080,actual
+2024-09,SKU-101 Smart thermostat,5416,actual
+2024-10,SKU-101 Smart thermostat,5655,actual
+2024-11,SKU-101 Smart thermostat,7117,actual
+2024-12,SKU-101 Smart thermostat,6895,actual
+2025-01,SKU-101 Smart thermostat,6595,actual
+2025-02,SKU-101 Smart thermostat,5994,actual
+2025-03,SKU-101 Smart thermostat,5308,actual
+2025-04,SKU-101 Smart thermostat,4755,actual
+2025-05,SKU-101 Smart thermostat,3719,actual
+2025-06,SKU-101 Smart thermostat,3717,actual
+2025-07,SKU-101 Smart thermostat,4064,actual
+2025-08,SKU-101 Smart thermostat,4691,actual
+2025-09,SKU-101 Smart thermostat,5898,actual
+2025-10,SKU-101 Smart thermostat,6541,actual
+2025-11,SKU-101 Smart thermostat,7337,actual
+2025-12,SKU-101 Smart thermostat,7861,actual
+2023-01,SKU-105 Smart plug 2-pack,9847,actual
+2023-02,SKU-105 Smart plug 2-pack,9081,actual
+2023-03,SKU-105 Smart plug 2-pack,8345,actual
+2023-04,SKU-105 Smart plug 2-pack,8053,actual
+2023-05,SKU-105 Smart plug 2-pack,7466,actual
+2023-06,SKU-105 Smart plug 2-pack,7164,actual
+2023-07,SKU-105 Smart plug 2-pack,7887,actual
+2023-08,SKU-105 Smart plug 2-pack,8311,actual
+2023-09,SKU-105 Smart plug 2-pack,8461,actual
+2023-10,SKU-105 Smart plug 2-pack,9570,actual
+2023-11,SKU-105 Smart plug 2-pack,10031,actual
+2023-12,SKU-105 Smart plug 2-pack,10750,actual
+2024-01,SKU-105 Smart plug 2-pack,10399,actual
+2024-02,SKU-105 Smart plug 2-pack,9338,actual
+2024-03,SKU-105 Smart plug 2-pack,9593,actual
+2024-04,SKU-105 Smart plug 2-pack,7901,actual
+2024-05,SKU-105 Smart plug 2-pack,7793,actual
+2024-06,SKU-105 Smart plug 2-pack,8011,actual
+2024-07,SKU-105 Smart plug 2-pack,15875,actual
+2024-08,SKU-105 Smart plug 2-pack,8469,actual
+2024-09,SKU-105 Smart plug 2-pack,8613,actual
+2024-10,SKU-105 Smart plug 2-pack,10171,actual
+2024-11,SKU-105 Smart plug 2-pack,10874,actual
+2024-12,SKU-105 Smart plug 2-pack,10825,actual
+2025-01,SKU-105 Smart plug 2-pack,11125,actual
+2025-02,SKU-105 Smart plug 2-pack,9833,actual
+2025-03,SKU-105 Smart plug 2-pack,9687,actual
+2025-04,SKU-105 Smart plug 2-pack,8873,actual
+2025-05,SKU-105 Smart plug 2-pack,8363,actual
+2025-06,SKU-105 Smart plug 2-pack,8062,actual
+2025-07,SKU-105 Smart plug 2-pack,8734,actual
+2025-08,SKU-105 Smart plug 2-pack,9452,actual
+2025-09,SKU-105 Smart plug 2-pack,9623,actual
+2025-10,SKU-105 Smart plug 2-pack,10664,actual
+2025-11,SKU-105 Smart plug 2-pack,10324,actual
+2025-12,SKU-105 Smart plug 2-pack,11558,actual
+2026-01,SKU-101 Smart thermostat,6925,planner_forecast
+2026-02,SKU-101 Smart thermostat,6294,planner_forecast
+2026-03,SKU-101 Smart thermostat,8493,planner_forecast
+2026-04,SKU-101 Smart thermostat,4993,planner_forecast
+2026-05,SKU-101 Smart thermostat,3905,planner_forecast
+2026-06,SKU-101 Smart thermostat,3903,planner_forecast
+2026-01,SKU-105 Smart plug 2-pack,11681,planner_forecast
+2026-02,SKU-105 Smart plug 2-pack,10325,planner_forecast
+2026-03,SKU-105 Smart plug 2-pack,10171,planner_forecast
+2026-04,SKU-105 Smart plug 2-pack,9317,planner_forecast
+2026-05,SKU-105 Smart plug 2-pack,8781,planner_forecast
+2026-06,SKU-105 Smart plug 2-pack,8465,planner_forecast

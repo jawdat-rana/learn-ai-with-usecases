@@ -1,0 +1,9 @@
+option,allocation,extra_freight_usd,units_short,lost_margin_usd,total_cost_usd,fill_rate_pct,tier_a_fill_rate_pct
+A. Do nothing,First come,0,4850,139750,139750,95.5,93.0
+A. Do nothing,Protect tier A,0,4850,139750,139750,95.5,95.3
+B. Reroute via Port Beta,First come,50120,960,27380,77500,99.1,98.4
+B. Reroute via Port Beta,Protect tier A,50120,960,27380,77500,99.1,99.8
+C. Air freight critical SKUs,First come,99400,1400,19800,119200,98.7,98.6
+C. Air freight critical SKUs,Protect tier A,99400,1400,19800,119200,98.7,99.5
+D. Reroute plus air,First come,92365,40,1000,93365,100.0,100.0
+D. Reroute plus air,Protect tier A,92365,40,1000,93365,100.0,100.0

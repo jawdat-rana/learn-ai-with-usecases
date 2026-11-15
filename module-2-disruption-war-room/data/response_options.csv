@@ -1,0 +1,5 @@
+option_id,option_name,what_it_means,reroute_start_week,reroute_share_pct,reroute_cost_per_unit_usd,air_start_week,air_share_pct,air_cost_per_unit_usd
+A,Do nothing,Wait for Port Alpha to reopen and clear its backlog,,0,0,,0,0
+B,Reroute via Port Beta,Divert blocked containers to Port Beta; first arrivals in week 3,3,80,3.5,,0,0
+C,Air freight critical SKUs,Fly part of the weekly volume for air-eligible SKUs from week 1,,0,0,1,50,14
+D,Reroute plus air,Air freight in weeks 1-2 to bridge the gap; reroute from week 3,3,80,3.5,1,50,14

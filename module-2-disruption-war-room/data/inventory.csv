@@ -1,0 +1,13 @@
+sku,description,ships_via,on_hand_units,weekly_demand_units,safety_stock_units,weekly_inbound_units,unit_margin_usd,tier_a_share_pct,air_eligible
+SKU-101,Smart thermostat,Port Alpha,1800,900,900,900,42,60,Y
+SKU-102,Wi-Fi door camera,Port Alpha,2600,1100,1100,1100,38,50,Y
+SKU-103,Battery pack 20Ah,Port Alpha,1500,700,700,700,25,40,N
+SKU-104,LED panel 60cm,Port Alpha,4200,1200,1200,1200,9,30,N
+SKU-105,Smart plug 2-pack,Port Alpha,5200,2000,2000,2000,6,35,N
+SKU-106,Air purifier,Port Alpha,900,350,350,350,55,70,Y
+SKU-107,Cable kit,Port Alpha,8000,1500,1500,1500,3,20,N
+SKU-108,Motion sensor,Port Alpha,1200,800,800,800,14,55,Y
+SKU-109,Control hub,Port Alpha,700,400,400,400,61,80,Y
+SKU-110,Mounting brackets,Domestic,3000,1000,1000,1000,4,25,N
+SKU-111,Installation service kit,Domestic,1500,500,500,500,12,60,N
+SKU-112,Packaging inserts,Domestic,9000,3000,3000,3000,1,10,N
