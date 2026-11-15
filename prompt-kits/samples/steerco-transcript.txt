@@ -1,0 +1,26 @@
+WMS UPGRADE STEERING COMMITTEE - TRANSCRIPT (synthetic, all names fictional)
+Attendees: Priya (Programme Director), Tom (Head of Warehousing), Leila (IT Lead), Marco (Finance), Sam (Vendor PM, Stackwise Systems)
+
+Priya: Okay, let's start. Main topics are the go-live date, the testing results and the budget. Leila, testing first?
+Leila: Integration testing is 80% done. We've got 14 open defects, 3 of them high severity. The worst one is that pick lists don't update when an order is changed after release. That's a big deal for the Northgate site.
+Tom: That's a showstopper for us. Northgate changes about 6% of orders after release. If pickers pick the wrong thing we're back to manual checks.
+Sam: We have a fix in development. We think it'll be ready by the 20th, maybe the 24th.
+Priya: Which one is it?
+Sam: Let's say the 24th to be safe.
+Priya: So can we still go live on the 3rd?
+Leila: Only if the fix lands on the 24th and regression testing takes a week. That's tight. I'd want at least five working days of regression.
+Marco: Every week we slip costs us about 40k in vendor fees and parallel running, just so everyone knows.
+Tom: I'd rather slip a week than go live with wrong pick lists before peak season.
+Priya: Agreed in principle. Let's say we keep the 3rd as the target but we'll make a go/no-go call on the 27th.
+Leila: Who's making that call? Last time it wasn't clear.
+Priya: Me, with Tom's sign-off for operations.
+Marco: On budget, we're 6% over on vendor fees. I need a revised forecast before month-end close.
+Sam: I can send something.
+Priya: Can someone look at whether we need extra temp staff at Northgate for the first two weeks after go-live?
+Tom: Yeah, we probably do. Maybe ten people.
+Priya: Okay. Also training - how many people are trained?
+Tom: About 60% of pickers. The night shift is behind because of holidays.
+Leila: There's also the label printer firmware issue. It's not in the defect list because it's on the hardware side, but if it isn't updated, labels won't print in the new format.
+Priya: Who owns hardware?
+Leila: Not sure, it used to be facilities.
+Priya: Let's find out. Anything else? No? Thanks everyone.

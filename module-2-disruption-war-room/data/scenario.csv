@@ -1,0 +1,5 @@
+setting,value,plain_english
+closure_start_week,1,Port Alpha closes at the start of week 1
+closure_weeks,3,It stays closed for 3 weeks
+backlog_release_share_pct,100,After reopening the port can release one extra normal week of cargo per week (on top of normal flow)
+horizon_weeks,8,We look 8 weeks ahead

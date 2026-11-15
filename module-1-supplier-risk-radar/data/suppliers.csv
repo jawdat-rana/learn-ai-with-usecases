@@ -1,0 +1,31 @@
+supplier_id,supplier_name,category,region,region_risk_1to5,annual_spend_usd,share_of_category_spend_pct,single_source,qualified_alternates,lead_time_days,on_time_delivery_pct,financial_health_1to5
+S01,Northwind Circuits,Electronic components,East Asia,3,6400000,56,Y,0,75,88,3
+S02,Bluepeak Packaging,Packaging,Southeast Asia,3,300000,4,N,0,7,87,3
+S03,Orion Polymers,Resins and plastics,East Asia,3,900000,16,N,3,70,96,3
+S04,Kestrel Metalworks,Machined metal parts,Eastern Europe,3,2300000,49,N,1,40,91,2
+S05,Sable Chemicals,Specialty chemicals,Eastern Europe,3,3500000,70,N,0,45,87,3
+S06,Voltaria Cells,Batteries,East Asia,3,4800000,66,Y,0,95,82,2
+S07,Lumen Textiles,Textiles,Western Europe,1,2200000,38,N,2,21,87,2
+S08,Harbor Line Freight,Freight and logistics,Eastern Europe,3,900000,18,N,1,10,96,3
+S09,Crescent Electronics,Electronic components,North America,1,2200000,19,N,1,21,94,5
+S10,Greenfold Cartons,Packaging,Southeast Asia,3,900000,13,N,2,21,90,4
+S11,Apex Resin Co,Resins and plastics,Western Europe,1,3500000,60,N,3,35,84,3
+S12,Ironbridge Machining,Machined metal parts,North America,1,900000,19,N,2,10,97,5
+S13,Clearwater Additives,Specialty chemicals,North America,1,300000,6,N,2,60,90,3
+S14,Helix Power,Batteries,Eastern Europe,3,300000,4,Y,0,45,96,3
+S15,Silkroute Fabrics,Textiles,South Asia,3,2200000,38,N,0,7,87,3
+S16,Meridian Logistics,Freight and logistics,Western Europe,1,3100000,63,N,2,7,96,4
+S17,Quartz Microparts,Electronic components,Western Europe,1,600000,5,N,3,10,94,5
+S18,Boxwell Industries,Packaging,Southeast Asia,3,2200000,31,N,1,60,84,5
+S19,Polyform Ltd,Resins and plastics,Western Europe,1,1400000,24,N,2,10,94,5
+S20,Torque Precision,Machined metal parts,Eastern Europe,3,600000,13,N,1,,84,4
+S21,Aurora Solvents,Specialty chemicals,Middle East,2,300000,6,N,1,30,92,2
+S22,Ampere Storage,Batteries,Southeast Asia,3,2200000,30,N,0,70,90,3
+S23,Weaveline Mills,Textiles,Middle East,2,1400000,24,N,1,70,96,3
+S24,Skyhaul Air Cargo,Freight and logistics,Eastern Europe,3,900000,18,N,3,35,98,4
+S25,Nimbus Semicon,Electronic components,Southeast Asia,3,1900000,17,Y,0,60,79,2
+S26,Ecowrap Solutions,Packaging,Eastern Europe,3,150000,2,N,0,10,84,3
+S27,Granite Castings,Machined metal parts,East Asia,3,900000,19,N,2,21,94,5
+S28,Pinecrest Labels,Packaging,Eastern Europe,3,3500000,50,N,3,60,92,4
+S29,Delta Coatings,Specialty chemicals,Latin America,2,900000,18,N,0,45,95,4
+S30,Stellar Connectors,Electronic components,South Asia,3,350000,3,Y,0,45,93,4

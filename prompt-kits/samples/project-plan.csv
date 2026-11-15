@@ -1,0 +1,13 @@
+task_id,task,owner_role,duration_days,depends_on,status
+T1,Finalise WMS configuration,IT Lead,10,,Done
+T2,Integration build (ERP to WMS),Vendor PM,15,T1,Done
+T3,Fix pick-list update defect,Vendor PM,8,T2,In progress
+T4,Regression testing,IT Lead,5,T3,Not started
+T5,Label printer firmware update,Unassigned,3,,Not started
+T6,Train day-shift pickers,Head of Warehousing,10,T1,Done
+T7,Train night-shift pickers,Head of Warehousing,8,T6,In progress
+T8,Recruit temporary staff for Northgate,Head of Warehousing,12,,Not started
+T9,Data migration dry run,IT Lead,4,T2,Done
+T10,Final data migration,IT Lead,2,T4;T9,Not started
+T11,Go/no-go decision,Programme Director,1,T4;T5;T7;T10,Not started
+T12,Go-live and hypercare (first week),Programme Director,5,T11;T8,Not started

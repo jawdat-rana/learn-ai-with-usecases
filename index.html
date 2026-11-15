@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI for Supply Chain Leaders</title>
+<meta name="description" content="A free, hands-on AI course for senior supply chain and project professionals who don't code.">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .hero { padding: 24px 0 8px; }
+  .hero .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink); }
+  .big-idea { font-size: 19px; border-left: 4px solid var(--accent); padding: 6px 0 6px 16px; max-width: 760px; margin: 20px 0; }
+  .steps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); counter-reset: s; }
+  .steps .card p { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
+  .module { display: flex; flex-direction: column; gap: 8px; }
+  .module .tag { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .module p { margin: 0; font-size: 15px; color: var(--ink-2); flex: 1; }
+  .module .actions { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; margin-top: 6px; }
+  .btn { display: inline-block; padding: 8px 14px; border-radius: 8px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+  ul.list { margin: 0; padding-left: 18px; }
+  ul.list li { margin: 4px 0; }
+  .challenges label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 15px; cursor: pointer; }
+  .challenges label:last-child { border-bottom: 0; }
+  .challenges input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+  .progress { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin: 8px 0 4px; }
+  .progress span { display: block; height: 100%; background: var(--good); border-radius: 0 4px 4px 0; transition: width .2s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="home" href="index.html">AI for Supply Chain Leaders</a>
+    <nav class="links">
+      <a data-gh="START-HERE.md" href="#">Start here</a>
+      <a href="#modules">Projects</a>
+      <a href="#kits">Prompt kits</a>
+      <a href="#advanced">Part 2</a>
+      <a data-gh-repo href="#">GitHub</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Free course · no coding · free AI tools only</div>
+    <h1>Use AI on real supply chain problems, without writing a line of code</h1>
+    <p class="lede">For senior project managers and supply chain professionals. Two flagship projects, four reusable prompt kits and a bonus on AI agents, all on synthetic data that's safe to use anywhere.</p>
+    <div class="big-idea">You think of the use case. The AI writes the code, explains it and fixes it. <strong>Your job is judging whether the answer is right.</strong></div>
+    <a class="btn" data-gh="START-HERE.md" href="#">Set up in 15 minutes →</a>
+  </section>
+
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="card"><h3><span class="step-num">1</span>Copy</h3><p>Copy the course into your own free GitHub account. You get this website too.</p></div>
+    <div class="card"><h3><span class="step-num">2</span>Prompt</h3><p>Follow copy-paste prompts in Claude, ChatGPT or Gemini (free plans).</p></div>
+    <div class="card"><h3><span class="step-num">3</span>Run</h3><p>The AI writes Python. Run it in the chat, or in Google Colab with one click.</p></div>
+    <div class="card"><h3><span class="step-num">4</span>Check</h3><p>Every module ends with "where AI is wrong", so you learn to trust it carefully.</p></div>
+  </div>
+
+  <h2>Foundations <span class="muted small">30 minutes</span></h2>
+  <div class="grid">
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="00-foundations/01-how-ai-works.md" href="#"><h3>1. How AI chat tools work</h3><p class="muted small" style="margin:0">What they're good and bad at, and what never to paste in.</p></a>
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="00-foundations/02-prompting-for-leaders.md" href="#"><h3>2. Prompting for senior professionals</h3><p class="muted small" style="margin:0">Brief the AI like a capable new analyst.</p></a>
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="00-foundations/03-you-dont-need-to-code.md" href="#"><h3>3. You don't need to code</h3><p class="muted small" style="margin:0">Get AI to write, run, explain and fix code for you.</p></a>
+  </div>
+
+  <h2 id="modules">Flagship projects</h2>
+  <div class="grid">
+    <div class="card module">
+      <span class="tag">MODULE 1 · 60-90 MIN</span>
+      <h3>Supplier Risk Radar</h3>
+      <p>Score 30 suppliers on likelihood and impact, spot concentration and single-source exposure, read the news for risk signals, and draft a mitigation plan and exec one-pager.</p>
+      <div class="actions">
+        <a class="btn" href="dashboards/supplier-risk.html">Open dashboard</a>
+        <a data-gh="module-1-supplier-risk-radar/README.md" href="#">Guide</a>
+        <a data-gh="module-1-supplier-risk-radar/prompts.md" href="#">Prompts</a>
+        <a data-colab="module-1-supplier-risk-radar/analysis/supplier_risk.ipynb" href="#">Run in Colab</a>
+      </div>
+    </div>
+    <div class="card module">
+      <span class="tag">MODULE 2 · 90 MIN</span>
+      <h3>Disruption War-Room Copilot</h3>
+      <p>A port closes for three weeks. Simulate stock for 12 products, compare reroute, air freight and do-nothing on cost and service, then write the decision memo, RAID log and 30-day plan.</p>
+      <div class="actions">
+        <a class="btn" href="dashboards/war-room.html">Open dashboard</a>
+        <a data-gh="module-2-disruption-war-room/README.md" href="#">Guide</a>
+        <a data-gh="module-2-disruption-war-room/prompts.md" href="#">Prompts</a>
+        <a data-colab="module-2-disruption-war-room/analysis/war_room.ipynb" href="#">Run in Colab</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="kits">Prompt kits <span class="muted small">reuse every week</span></h2>
+  <div class="grid">
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="prompt-kits/steerco-transcript-to-decisions.md" href="#"><h3>Steerco transcript → decisions</h3><p class="muted small" style="margin:0">Decisions, owners, risks and conflicts from a messy meeting.</p></a>
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="prompt-kits/contract-sla-review.md" href="#"><h3>Contract and SLA review</h3><p class="muted small" style="margin:0">Find the risky clauses before you sign or renew.</p></a>
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="prompt-kits/demand-forecast-sanity-check.md" href="#"><h3>Forecast sanity check</h3><p class="muted small" style="margin:0">An independent baseline that flags months to question.</p></a>
+    <a class="card" style="text-decoration:none;color:inherit" data-gh="prompt-kits/project-plan-stress-test.md" href="#"><h3>Plan stress test</h3><p class="muted small" style="margin:0">Critical path, slack and missing owners before go/no-go.</p></a>
+  </div>
+
+  <h2 id="advanced">Part 2 (advanced): skills, agents and AI teams</h2>
+  <div class="card">
+    <p style="margin-top:0">When you've finished the projects: package your method as a reusable skill, run a Planner → Analyst → Reviewer team by hand, then build a real agent team in Google Colab with a free API key.</p>
+    <ul class="list">
+      <li><a data-gh="part-2-advanced/exercise-1-build-a-skill.md" href="#">Exercise 1: Build a skill</a> (no code)</li>
+      <li><a data-gh="part-2-advanced/exercise-2-agent-team-no-code.md" href="#">Exercise 2: Run an agent team by hand</a> (no code)</li>
+      <li><a data-gh="part-2-advanced/exercise-3-agent-team-in-colab.md" href="#">Exercise 3: Build a real agent team</a> (<a data-colab="part-2-advanced/agents/war_room_agents.ipynb" href="#">open in Colab</a>)</li>
+    </ul>
+  </div>
+
+  <h2>Your 10 challenges</h2>
+  <div class="card">
+    <div class="progress"><span id="bar" style="width:0"></span></div>
+    <div class="small muted" id="count">0 of 10 done</div>
+    <div class="challenges" id="challenges"></div>
+    <p class="small muted" style="margin-bottom:0">Ticks are saved in this browser only. Keep notes in <a data-gh-edit="my-ai-journal.md" href="#">your AI journal</a> (opens the editor on GitHub).</p>
+  </div>
+
+  <footer>All data in this course is synthetic. Use only AI tools your company has approved for real work. Course pages are plain HTML and JavaScript, <a data-gh="index.html" href="#">written by AI</a>.</footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script>
+const CHALLENGES = [
+  "Live: your own copy and website are live",
+  "Better brief: run an R-C-T-F-C prompt in two AI tools and compare",
+  "Risk radar: finish Module 1 and find the 4 high-risk suppliers",
+  "Caught it: catch the AI in a mistake and get it to explain why",
+  "Code without coding: run AI-written Python without typing code",
+  "Change it in English: get the AI to change the code and re-run it",
+  "War room: finish Module 2 with a decision memo you'd send",
+  "Real work: use a prompt kit on a real (anonymised) work document",
+  "Ship a page: publish a new AI-built page on your site",
+  "Advanced: build a skill or run an agent team (Part 2)",
+];
+const KEY = "ai-course-challenges";
+let done = [];
+try { done = JSON.parse(localStorage.getItem(KEY)) || []; } catch { done = []; }
+function draw() {
+  document.getElementById("challenges").innerHTML = CHALLENGES.map((c, i) => {
+    const [title, rest] = c.split(": ");
+    return `<label><input type="checkbox" data-i="${i}" ${done.includes(i) ? "checked" : ""}><span><strong>${i + 1}. ${title}.</strong> ${rest[0].toUpperCase() + rest.slice(1)}</span></label>`;
+  }).join("");
+  document.getElementById("bar").style.width = (done.length * 10) + "%";
+  document.getElementById("count").textContent = `${done.length} of 10 done`;
+}
+document.getElementById("challenges").addEventListener("change", e => {
+  const i = +e.target.dataset.i;
+  done = e.target.checked ? [...new Set([...done, i])] : done.filter(x => x !== i);
+  try { localStorage.setItem(KEY, JSON.stringify(done)); } catch {}
+  draw();
+});
+draw();
+</script>
+</body>
+</html>

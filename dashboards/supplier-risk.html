@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supplier Risk Radar</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  .layout { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 900px) { .layout { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
+  .heat { display: grid; grid-template-columns: 28px repeat(5, minmax(0, 1fr)); gap: 2px; }
+  .heat .cell { min-height: 74px; border-radius: 6px; padding: 4px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px; position: relative; }
+  .heat .cell.Low { background: var(--good-bg); }
+  .heat .cell.Medium { background: var(--warning-bg); }
+  .heat .cell.High { background: var(--critical-bg); }
+  .heat .axis { font-size: 12px; color: var(--ink-2); display: grid; place-items: center; }
+  .heat .zone { position: absolute; right: 5px; bottom: 3px; font-size: 10px; color: var(--ink-3); }
+  .chip { font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; color: var(--ink); }
+  .chip:hover, .chip.on { border-color: var(--ink); }
+  .axis-title { font-size: 12px; color: var(--ink-2); text-align: center; margin-top: 6px; }
+  .bars .row { display: grid; grid-template-columns: 150px 1fr 48px; gap: 8px; align-items: center; font-size: 13px; margin: 6px 0; }
+  .bars .track { height: 14px; background: var(--surface-2); border-radius: 4px; position: relative; }
+  .bars .fill { height: 100%; border-radius: 0 4px 4px 0; background: var(--s1); }
+  .bars .fill.single { background: var(--s2); }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); margin-top: 8px; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  #status { font-size: 13px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="home" href="../index.html">← AI for Supply Chain Leaders</a>
+    <nav class="links">
+      <a data-gh="module-1-supplier-risk-radar/README.md" href="#">Module guide</a>
+      <a data-gh="module-1-supplier-risk-radar/prompts.md" href="#">Prompts that built this</a>
+      <a data-gh="dashboards/supplier-risk.html" href="#">See the code</a>
+    </nav>
+  </header>
+
+  <h1>Supplier Risk Radar</h1>
+  <p class="lede">Every supplier is scored 1 to 5 on likelihood and impact. Risk = likelihood × impact, from 1 to 25. All numbers are synthetic.</p>
+
+  <div class="controls">
+    <label><input type="checkbox" id="news" checked> Apply news flags (+1 likelihood)</label>
+    <label>Category <select id="cat"><option value="">All</option></select></label>
+    <label>Tier <select id="tier"><option value="">All</option><option>High</option><option>Medium</option><option>Low</option></select></label>
+    <label>Try your own CSV <input type="file" id="file" accept=".csv"></label>
+    <button id="copy" class="primary">Copy summary for AI</button>
+    <span id="status"></span>
+  </div>
+  <p class="small muted">Your own file never leaves your browser: the page reads it on your computer and sends nothing anywhere. It needs the same column names as the <a data-gh="module-1-supplier-risk-radar/data/suppliers.csv" href="#">sample file</a>.</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="layout">
+    <section class="card">
+      <h3>Risk heatmap</h3>
+      <p class="small muted" style="margin-top:0">Hover a supplier for its scores. Click to find it in the table.</p>
+      <div class="heat" id="heat"></div>
+      <div class="axis-title">Likelihood → (region, finances, on-time delivery, lead time)</div>
+      <div class="legend">
+        <span><i style="background:var(--critical)"></i>High 15-25</span>
+        <span><i style="background:var(--warning)"></i>Medium 8-14</span>
+        <span><i style="background:var(--good)"></i>Low 1-7</span>
+      </div>
+    </section>
+    <section class="card">
+      <h3>Concentration: biggest supplier's share of each category</h3>
+      <p class="small muted" style="margin-top:0">Above 60% means one supplier holds most of the category.</p>
+      <div class="bars" id="bars"></div>
+      <div class="legend">
+        <span><i style="background:var(--s1)"></i>Has other suppliers</span>
+        <span><i style="background:var(--s2)"></i>Single source</span>
+      </div>
+    </section>
+  </div>
+
+  <h2>All suppliers</h2>
+  <div class="table-scroll"><table id="table"></table></div>
+
+  <div class="callout warn">
+    <strong>Before you trust this:</strong> the rubric is a judgement call, not a fact. Change one threshold and the ranking moves. Check the data gaps column, read the news matches yourself, and ask the AI "which suppliers would move tier if I changed the lead-time thresholds?"
+  </div>
+
+  <footer>Built by AI from the prompts in <a data-gh="module-1-supplier-risk-radar/prompts.md" href="#">prompts.md</a>. The same rubric is in <a data-gh="module-1-supplier-risk-radar/analysis/supplier_risk.py" href="#">the Python version</a>, so you can check one against the other.</footer>
+</div>
+<div class="tooltip" id="tip"></div>
+
+<script src="../assets/site.js"></script>
+<script>
+// ---- The scoring rubric (1 = low risk, 5 = high risk). Same as the Python version. ----
+const band = (v, cuts) => { for (let i = 0; i < cuts.length; i++) if (v <= cuts[i]) return i + 1; return cuts.length + 1; };
+const scoreLeadTime = d => d === "" || isNaN(d) ? 5 : band(+d, [14, 30, 45, 60]);
+const scoreOnTime = p => p >= 95 ? 1 : p >= 90 ? 2 : p >= 85 ? 3 : p >= 80 ? 4 : 5;
+const scoreSpend = u => u >= 4e6 ? 5 : u >= 2e6 ? 4 : u >= 1e6 ? 3 : u >= 5e5 ? 2 : 1;
+const scoreConcentration = s => s >= 60 ? 5 : s >= 40 ? 4 : s >= 25 ? 3 : s >= 10 ? 2 : 1;
+const scoreSubstitutability = (single, alts) => single === "Y" ? 5 : alts >= 3 ? 1 : 4 - alts;
+const roundHalfUp = x => Math.floor(x + 0.5);
+const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+
+// News flags: the AI read news-snippets.md and matched stories to suppliers; a human checked each one.
+const NEWS_FLAGS = {
+  S06: "Plant consolidation, customers warned of allocation (news #2)",
+  S25: "Missed a bond payment (news #3)",
+  S07: "Workers voting on strike action (news #5)",
+  S14: "New export licensing rules for battery cells (news #7)",
+  S22: "New export licensing rules for battery cells (news #7)",
+};
+
+const REQUIRED = ["supplier_id","supplier_name","category","region","region_risk_1to5","annual_spend_usd",
+  "share_of_category_spend_pct","single_source","qualified_alternates","lead_time_days","on_time_delivery_pct","financial_health_1to5"];
+
+let raw = [], scored = [], sortKey = "risk", sortDir = -1, selected = null;
+
+function score(rows, applyNews) {
+  return rows.map(r => {
+    const s = {
+      region: +r.region_risk_1to5,
+      financial: 6 - +r.financial_health_1to5,
+      onTime: scoreOnTime(+r.on_time_delivery_pct),
+      leadTime: scoreLeadTime(r.lead_time_days),
+      spend: scoreSpend(+r.annual_spend_usd),
+      concentration: scoreConcentration(+r.share_of_category_spend_pct),
+      substitutability: scoreSubstitutability(r.single_source, +r.qualified_alternates),
+    };
+    let L = roundHalfUp(mean([s.region, s.financial, s.onTime, s.leadTime]));
+    const I = roundHalfUp(mean([s.spend, s.concentration, s.substitutability]));
+    const news = NEWS_FLAGS[r.supplier_id] || "";
+    if (applyNews && news) L = Math.min(5, L + 1);
+    const risk = L * I;
+    return { ...r, s, L, I, risk, news, tier: risk >= 15 ? "High" : risk >= 8 ? "Medium" : "Low",
+      gap: r.lead_time_days === "" ? "Lead time missing" : "" };
+  });
+}
+
+function visible() {
+  const c = document.getElementById("cat").value, t = document.getElementById("tier").value;
+  return scored.filter(r => (!c || r.category === c) && (!t || r.tier === t));
+}
+
+function render() {
+  scored = score(raw, document.getElementById("news").checked);
+  const rows = visible();
+  // Tiles
+  const total = rows.reduce((a, r) => a + +r.annual_spend_usd, 0);
+  const high = rows.filter(r => r.tier === "High");
+  const single = rows.filter(r => r.single_source === "Y");
+  const highSpend = high.reduce((a, r) => a + +r.annual_spend_usd, 0);
+  const singleSpend = single.reduce((a, r) => a + +r.annual_spend_usd, 0);
+  const pct = n => total ? Math.round(100 * n / total) + "% of spend" : "";
+  document.getElementById("tiles").innerHTML = [
+    ["Suppliers", rows.length, fmtM(total) + " annual spend"],
+    ["High risk", high.length, fmtM(highSpend) + " · " + pct(highSpend)],
+    ["Single source", single.length, fmtM(singleSpend) + " · " + pct(singleSpend)],
+    ["Data gaps", rows.filter(r => r.gap).length, "Rows with missing values"],
+  ].map(([l, v, s]) => `<div class="tile"><div class="label">${l}</div><div class="value">${v}</div><div class="sub">${s}</div></div>`).join("");
+
+  // Heatmap: impact 5 at the top, likelihood 1 on the left
+  let h = "";
+  for (let I = 5; I >= 1; I--) {
+    h += `<div class="axis">${I}</div>`;
+    for (let L = 1; L <= 5; L++) {
+      const z = L * I >= 15 ? "High" : L * I >= 8 ? "Medium" : "Low";
+      const chips = rows.filter(r => r.L === L && r.I === I)
+        .map(r => `<span class="chip${selected === r.supplier_id ? " on" : ""}" data-id="${esc(r.supplier_id)}">${esc(r.supplier_id)}</span>`).join("");
+      h += `<div class="cell ${z}">${chips}<span class="zone">${L * I}</span></div>`;
+    }
+  }
+  h += `<div></div>` + [1, 2, 3, 4, 5].map(n => `<div class="axis">${n}</div>`).join("");
+  document.getElementById("heat").innerHTML = h;
+  document.querySelector(".heat").setAttribute("aria-label", "Impact (up) by likelihood (across)");
+
+  // Concentration bars
+  const byCat = {};
+  rows.forEach(r => { if (!byCat[r.category] || +r.share_of_category_spend_pct > +byCat[r.category].share_of_category_spend_pct) byCat[r.category] = r; });
+  document.getElementById("bars").innerHTML = Object.values(byCat)
+    .sort((a, b) => b.share_of_category_spend_pct - a.share_of_category_spend_pct)
+    .map(r => `<div class="row" title="${esc(r.supplier_name)}"><span>${esc(r.category)}</span>
+      <span class="track"><span class="fill ${r.single_source === "Y" ? "single" : ""}" style="display:block;width:${r.share_of_category_spend_pct}%"></span></span>
+      <span class="num">${r.share_of_category_spend_pct}%</span></div>`).join("");
+
+  // Table
+  const cols = [
+    ["supplier_id", "ID"], ["supplier_name", "Supplier"], ["category", "Category"], ["region", "Region"],
+    ["L", "Likelihood", 1], ["I", "Impact", 1], ["risk", "Risk", 1], ["tier", "Tier"],
+    ["annual_spend_usd", "Spend", 1], ["share_of_category_spend_pct", "Cat. share", 1], ["single_source", "Single source"],
+    ["news", "News"], ["gap", "Data gaps"],
+  ];
+  const sorted = [...rows].sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    const nx = parseFloat(x), ny = parseFloat(y);
+    const cmp = !isNaN(nx) && !isNaN(ny) ? nx - ny : String(x).localeCompare(String(y));
+    return cmp * sortDir || (+b.annual_spend_usd - +a.annual_spend_usd);
+  });
+  document.getElementById("table").innerHTML =
+    `<thead><tr>${cols.map(([k, l, n]) => `<th data-sort="${k}" class="${n ? "num" : ""}">${l}${sortKey === k ? (sortDir > 0 ? " ▲" : " ▼") : ""}</th>`).join("")}</tr></thead><tbody>` +
+    sorted.map(r => `<tr id="row-${esc(r.supplier_id)}" class="${selected === r.supplier_id ? "hl" : ""}">${cols.map(([k, , n]) => {
+      let v = r[k];
+      if (k === "tier") v = `<span class="pill ${v}"><span class="dot"></span>${v}</span>`;
+      else if (k === "annual_spend_usd") v = fmtM(+v);
+      else if (k === "share_of_category_spend_pct") v = v + "%";
+      else v = esc(v);
+      return `<td class="${n ? "num" : ""}">${v}</td>`;
+    }).join("")}</tr>`).join("") + "</tbody>";
+}
+
+function load(rows, label) {
+  const missing = REQUIRED.filter(c => !(c in (rows[0] || {})));
+  if (missing.length) { document.getElementById("status").textContent = "Missing columns: " + missing.join(", "); return; }
+  raw = rows;
+  const cats = [...new Set(rows.map(r => r.category))].sort();
+  document.getElementById("cat").innerHTML = `<option value="">All</option>` + cats.map(c => `<option>${esc(c)}</option>`).join("");
+  document.getElementById("status").textContent = label;
+  render();
+}
+
+// Events
+["news", "cat", "tier"].forEach(id => document.getElementById(id).addEventListener("change", render));
+document.getElementById("table").addEventListener("click", e => {
+  const k = e.target.closest("th")?.dataset.sort; if (!k) return;
+  sortDir = sortKey === k ? -sortDir : -1; sortKey = k; render();
+});
+const tip = document.getElementById("tip");
+document.getElementById("heat").addEventListener("mousemove", e => {
+  const id = e.target.closest(".chip")?.dataset.id;
+  if (!id) { tip.style.display = "none"; return; }
+  const r = scored.find(x => x.supplier_id === id);
+  tip.innerHTML = `<strong>${esc(r.supplier_name)}</strong><br>${esc(r.category)} · ${esc(r.region)}<br>
+    Likelihood ${r.L} (region ${r.s.region}, finances ${r.s.financial}, on-time ${r.s.onTime}, lead time ${r.s.leadTime})<br>
+    Impact ${r.I} (spend ${r.s.spend}, concentration ${r.s.concentration}, substitutability ${r.s.substitutability})<br>
+    <strong>Risk ${r.risk}/25 · ${r.tier}</strong>${r.news ? "<br>News: " + esc(r.news) : ""}${r.gap ? "<br>⚠ " + r.gap : ""}`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 290) + "px";
+  tip.style.top = (e.clientY + 14) + "px";
+});
+document.getElementById("heat").addEventListener("mouseleave", () => tip.style.display = "none");
+document.getElementById("heat").addEventListener("click", e => {
+  const id = e.target.closest(".chip")?.dataset.id; if (!id) return;
+  selected = selected === id ? null : id; render();
+  document.getElementById("row-" + id)?.scrollIntoView({ block: "center", behavior: "smooth" });
+});
+document.getElementById("file").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (f) load(parseCSV(await f.text()), "Showing your file: " + f.name);
+});
+document.getElementById("copy").addEventListener("click", async () => {
+  const rows = visible().sort((a, b) => b.risk - a.risk);
+  const text = "Here are supplier risk results (likelihood x impact, 1-25). Write a one-page executive summary with the top risks, " +
+    "the concentration issues and three mitigation actions. Do not change any numbers.\n\n" +
+    "ID | Supplier | Category | Region | Risk | Tier | Category share | Single source | News | Data gap\n" +
+    rows.map(r => [r.supplier_id, r.supplier_name, r.category, r.region, r.risk, r.tier, r.share_of_category_spend_pct + "%", r.single_source, r.news || "-", r.gap || "-"].join(" | ")).join("\n");
+  try { await navigator.clipboard.writeText(text); document.getElementById("status").textContent = "Copied. Paste it into your AI chat."; }
+  catch { document.getElementById("status").textContent = "Your browser blocked copying. Select the table and copy it instead."; }
+});
+
+fetchCSV("../module-1-supplier-risk-radar/data/suppliers.csv")
+  .then(rows => load(rows, "Showing the sample data"))
+  .catch(() => document.getElementById("status").textContent = "Could not load the sample data. Open this page from your GitHub Pages site, or choose a CSV file above.");
+</script>
+</body>
+</html>
